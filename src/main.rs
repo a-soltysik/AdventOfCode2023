@@ -6,6 +6,7 @@ mod day1;
 mod day2;
 mod day3;
 mod day4;
+mod day5;
 
 fn main() {
     let day = env::args().nth(1).and_then(|arg| arg.parse::<u32>().ok());
@@ -26,6 +27,10 @@ fn main() {
         Some(4) => {
             day4::part1::solve(&mut file);
             day4::part2::solve(&mut file);
+        }
+        Some(5) => {
+            day5::part1::solve(&mut file);
+            day5::part2::solve(&mut file);
         }
         Some(x) => println!("Day {x} is not implemented"),
         None => println!("Usage: program <day_number>"),
