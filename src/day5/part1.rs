@@ -5,16 +5,13 @@ use std::{
 
 use crate::utils;
 
-#[derive(Debug)]
-struct Input {
-    rules: HashMap<u32, HashSet<u32>>,
-    updates: Vec<Vec<u32>>,
-}
+use super::common;
 
+/// Map each page number to all page numbers that occur before it. Then, for each number in an update, check if all consecutive numbers are not included in the map
 pub fn solve(output: &mut File) {
     let content = fs::read_to_string("src/day5/input.txt").expect("File doesn't exist");
 
-    let input = process_content(&content);
+    let input = common::process_content(&content);
 
     utils::write_output(
         output,
@@ -25,42 +22,6 @@ pub fn solve(output: &mut File) {
             .filter_map(|update| update.get(update.len() / 2))
             .sum::<u32>(),
     );
-}
-
-fn process_content(content: &str) -> Input {
-    let (rules, updates) = content.split_once("\r\n\r\n").unwrap();
-    Input {
-        rules: extract_rules(rules),
-        updates: extract_updates(updates),
-    }
-}
-
-fn extract_rules(content: &str) -> HashMap<u32, HashSet<u32>> {
-    content
-        .split_whitespace()
-        .filter_map(|line| {
-            let mut numbers = line
-                .split('|')
-                .filter_map(|number| number.parse::<u32>().ok());
-            Some((numbers.next()?, numbers.next()?))
-        })
-        .fold(HashMap::new(), |mut map, pair| {
-            map.entry(pair.1)
-                .or_insert_with(HashSet::new)
-                .insert(pair.0);
-            map
-        })
-}
-
-fn extract_updates(content: &str) -> Vec<Vec<u32>> {
-    content
-        .split_whitespace()
-        .map(|line| {
-            line.split(',')
-                .filter_map(|number| number.parse::<u32>().ok())
-                .collect()
-        })
-        .collect()
 }
 
 fn is_update_correct(update: &[u32], rules: &HashMap<u32, HashSet<u32>>) -> bool {

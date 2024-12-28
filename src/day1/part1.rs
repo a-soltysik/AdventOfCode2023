@@ -2,6 +2,7 @@ use std::fs::{self, File};
 
 use crate::utils;
 
+/// Sort the left and right columns, then calculate the difference between the values at the corresponding positions in both columns
 pub fn solve(output: &mut File) {
     let content = fs::read_to_string("src/day1/input.txt").expect("File doesn't exist");
 

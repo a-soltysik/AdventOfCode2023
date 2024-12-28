@@ -10,6 +10,7 @@ enum RegexResult {
     Dont(usize),
 }
 
+/// Find all mul(x, y), do() and don't(), sort them by position in string and calculate all mul expression, expect ones between don't() and do()
 pub fn solve(output: &mut File) {
     let content = fs::read_to_string("src/day3/input.txt").expect("File doesn't exist");
 

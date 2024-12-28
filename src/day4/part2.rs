@@ -2,19 +2,14 @@ use std::fs::{self, File};
 
 use crate::utils;
 
+use super::common;
+
 pub fn solve(output: &mut File) {
     let content = fs::read_to_string("src/day4/input.txt").expect("File doesn't exist");
 
-    let grid = process_content(&content);
+    let grid = common::process_content(&content);
 
     utils::write_output(output, iterate_windows(&grid));
-}
-
-fn process_content(content: &str) -> Vec<Vec<char>> {
-    content
-        .split_whitespace()
-        .map(|line| line.chars().collect::<Vec<char>>())
-        .collect()
 }
 
 fn iterate_windows(grid: &Vec<Vec<char>>) -> u32 {

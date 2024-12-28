@@ -5,6 +5,7 @@ use std::{
 
 use crate::utils;
 
+/// Count the occurrences of each number in the right column using a hash map, and multiply each number in the left column by its occurrence count
 pub fn solve(output: &mut File) {
     let content = fs::read_to_string("src/day1/input.txt").expect("File doesn't exist");
 

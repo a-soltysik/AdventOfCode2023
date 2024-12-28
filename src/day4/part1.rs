@@ -2,10 +2,13 @@ use std::fs::{self, File};
 
 use crate::utils;
 
+use super::common;
+
+// Count all "XMAS" substrings by looking for it in all directions for a given starting point
 pub fn solve(output: &mut File) {
     let content = fs::read_to_string("src/day4/input.txt").expect("File doesn't exist");
 
-    let grid = process_content(&content);
+    let grid = common::process_content(&content);
 
     let mut result = 0;
     for i in 0..grid.len() as isize {
@@ -37,13 +40,6 @@ pub fn solve(output: &mut File) {
     }
 
     utils::write_output(output, result);
-}
-
-fn process_content(content: &str) -> Vec<Vec<char>> {
-    content
-        .split_whitespace()
-        .map(|line| line.chars().collect::<Vec<char>>())
-        .collect()
 }
 
 fn check_direction(
